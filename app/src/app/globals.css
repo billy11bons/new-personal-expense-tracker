@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+body { font-family: Arial, sans-serif; line-height: 1.5; color: #17202a; background: #f5f7fa; margin: 0; }
+* { box-sizing: border-box; }
+.shell { max-width: 960px; margin: auto; padding: 16px; }
+header { padding-block: 12px; }
+h1 { font-size: 1.5rem; font-weight: 700; } h2 { font-size: 1.35rem; font-weight: 700; margin-block: 16px; } h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+p { margin-block: 8px; } a { color: #174c8b; text-decoration: underline; }
+nav { display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid #cbd3dc; padding-block: 8px; }
+nav a { padding: 10px 12px; text-decoration: none; border-radius: 6px; }
+nav a[aria-current] { background: #174c8b; color: white; }
+main { min-height: 55vh; } footer { margin-top: 28px; border-top: 1px solid #cbd3dc; padding-block: 16px; font-size: .875rem; color: #4e5b69; }
+.muted { color: #4e5b69; } .storage-status { font-size: .875rem; }
+.section-heading, .record-heading, .record, .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.section-heading, .record, .record-heading { justify-content: space-between; }
+.panel { background: white; border: 1px solid #cbd3dc; border-radius: 8px; padding: 16px; margin-block: 14px; }
+.record-list { list-style: none; padding: 0; } .record-info { flex: 1 1 280px; min-width: 0; overflow-wrap: anywhere; }
+.record-heading strong { overflow-wrap: anywhere; } .record-heading span { white-space: nowrap; }
+.income { color: #116341; font-weight: 700; } .expense { color: #7f2929; font-weight: 700; }
+label { display: block; font-weight: 600; margin-bottom: 14px; } label small { display: block; font-weight: 400; color: #4e5b69; margin-top: 4px; }
+input, select, textarea { display: block; width: 100%; min-width: 0; min-height: 44px; font: inherit; font-weight: 400; background: white; border: 1px solid #778899; border-radius: 5px; padding: 9px; margin-top: 5px; }
+textarea { resize: vertical; } fieldset { min-width: 0; border: 0; padding: 0; } button { font: inherit; cursor: pointer; min-height: 44px; padding: 9px 13px; border: 1px solid #778899; border-radius: 5px; background: white; }
+button:disabled { opacity: .6; cursor: wait; } .primary { background: #174c8b; color: white; border-color: #174c8b; }
+.danger { background: #a22626; color: white; border-color: #a22626; } .danger-outline { color: #922020; border-color: #922020; }
+.actions { margin-top: 8px; } .field-error { display: block; color: #982020; font-weight: 500; margin-block: 6px; }
+[aria-invalid="true"] { border: 2px solid #982020; } .error-box { border: 1px solid #982020; padding: 12px; background: #fff0f0; margin-block: 12px; }
+.success { color: #116341; } :focus-visible { outline: 3px solid #d58a00; outline-offset: 3px; }
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-block: 14px; }
+.kpi { background: white; border: 1px solid #cbd3dc; border-radius: 8px; padding: 14px; min-height: 102px; display: flex; flex-direction: column; gap: 6px; }
+.kpi strong { font-size: 1.25rem; } .kpi small { color: #4e5b69; }
+.dashboard-grid { display: grid; gap: 14px; } .chart { margin-block: 0; }
+.bars { display: grid; gap: 12px; } .bar-row { display: grid; grid-template-columns: minmax(85px, 1fr) minmax(80px, 2fr) auto; gap: 8px; align-items: center; font-size: .9rem; }
+.bar-track { height: 12px; background: #e4e9ef; border-radius: 99px; overflow: hidden; } .bar-fill { height: 100%; background: #2d6aa3; border-radius: 99px; }
+dialog { margin: auto; width: min(460px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow: auto; border: 1px solid #778899; border-radius: 8px; padding: 20px; }
+dialog::backdrop { background: #17202a88; } .skip-link { position: absolute; left: -9999px; } .skip-link:focus { position: static; }
+@media (min-width: 640px) { .shell { padding: 24px; } .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; } }
+@media (min-width: 800px) { .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .dashboard-grid { grid-template-columns: 1fr 1fr; } }

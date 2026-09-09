@@ -1,0 +1,14 @@
+app/node_modules/
+app/.next/
+app/out/
+app/*.tsbuildinfo
+app/test-results/
+app/playwright-report/
+app/.test-profiles/
+app/.env*
+!app/.env.example
+*.log
+app/next-env.d.ts
+
+# Local Netlify folder
+.netlify
