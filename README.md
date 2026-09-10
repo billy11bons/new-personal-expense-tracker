@@ -105,7 +105,7 @@ Stage 5 завершён. Дальнейшие изменения и deployment 
 
 ## Netlify deployment
 
-Для deployment используется минимальный `netlify.toml` с `base = "app"` и `npm run build`; legacy `@netlify/plugin-nextjs` и static publish directory не используются. Production site: <https://case02-personal-expense-tracker.netlify.app>. Доступность URL зависит от настроек Netlify account-level SSO.
+Для deployment используется GitHub repository `billy11bons/new-personal-expense-tracker`, ветка `main`, и минимальный `netlify.toml` с `base = "app"` и `npm run build`. Runtime Netlify установлен в Next.js, Publish directory — `.next`; legacy `@netlify/plugin-nextjs` не используется. Production site: <https://new-personal-expense-tracker.netlify.app>.
 
 Публикация не меняет модель хранения: production-приложение по-прежнему хранит операции только в localStorage браузера и не синхронизирует их между устройствами или пользователями.
 
