@@ -9,7 +9,9 @@
 - Production URL: https://case02-personal-expense-tracker.netlify.app
 - Deploy URL: https://6aa1daefd7ecd9e6a72c1999--case02-personal-expense-tracker.netlify.app
 - Deploy ID: `6aa1daefd7ecd9e6a72c1999`.
-- Commit: отсутствует. В рабочей папке нет доступного Git-репозитория; deployment выполнен как manual deploy из текущего проверенного состояния.
+- Commit для исходного deployment: отсутствует, поскольку manual deploy был выполнен до инициализации Git.
+- GitHub repository: https://github.com/billy11bons/new-personal-expense-tracker
+- Текущий commit после подготовки workflow: `c24fdc6e20e2620d847dc3f35225ac5e75d81890` (`Case 02 Personal Expense Tracker - completed MVP and deployment config`). Ветка `main` запушена и отслеживает `origin/main`.
 
 ## Netlify configuration
 
@@ -24,6 +26,8 @@
 `base` нужен из-за размещения Next.js приложения в подпапке `app`; `command` запускает production build. `publish` и legacy `@netlify/plugin-nextjs` не добавлялись: Netlify использует актуальную автоматическую интеграцию Next.js.
 
 `.netlify` добавлен в `.gitignore` как локальная служебная папка CLI. Секреты и `.env` в deployment не передавались; приложение работает без environment variables.
+
+GitHub workflow подготовлен отдельно от Netlify: repository создан и push выполнен, но Netlify site к GitHub не подключался.
 
 ## Pre-deploy verification
 
@@ -46,4 +50,4 @@ Deployment не превращает приложение в облачное: �
 
 ## Итог
 
-Артефакт production успешно создан и собран. Stage 6 остаётся **not completed**, пока сайт не будет доступен без account-level SSO для требуемой публичной проверки. Функциональность приложения не изменялась; Stage 7 и новые функции не начинались.
+Артефакт production успешно создан и собран, GitHub repository подготовлен и синхронизирован. CI/CD connection настроен, но первый Git-based deploy остановился на `preparing repo` с `Permission denied (publickey)`: Netlify deploy key ещё не добавлен в GitHub repository. Stage 6 остаётся **not completed** до добавления ключа и успешной публичной проверки. Функциональность приложения не изменялась; следующие этапы и новые функции не начинались.
