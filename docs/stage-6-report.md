@@ -40,9 +40,9 @@ Netlify Build также успешно выполнил `npm run build` и оп
 
 ## Production verification
 
-Проверка публичных маршрутов `/`, `/transactions`, `/categories`, `/budget` выполнена после deployment. Все запросы перенаправляются на Netlify Edge Access login, поэтому подтвердить Dashboard, CRUD, категории, бюджет, фильтры, графики, reload и mobile layout без авторизации невозможно. Это не 404 и не ошибка сборки.
+Проверка публичных маршрутов `/`, `/transactions`, `/categories`, `/budget` после Git builds возвращает 404. Netlify deploy metadata сообщает `framework: next`, но опубликованные files относятся к другому source tree (`/src/app/expenses`, `/src/lib/...`), а `commit_ref` `369a1ab6...` отсутствует в текущем GitHub `main`. Текущий repository tree содержит приложение в `app/`. Это объясняет Page Not Found; маршруты, Dashboard, CRUD, категории, бюджет, фильтры, графики, reload/localStorage и mobile layout на production пока не могут считаться проверенными.
 
-Причина: Netlify site унаследовал account-level настройки `account_sso_login: true`, `account_sso_login_context: all`. API `updateSite` не предоставляет site-only override для этих полей; попытка изменить только этот сайт не изменила настройки. Настройки аккаунта и других сайтов не затрагивались.
+Account-level SSO больше не является блокером: site публичен (`sso_login: false`, `account_sso_login: false`).
 
 ## Ограничения localStorage
 
@@ -50,4 +50,4 @@ Deployment не превращает приложение в облачное: �
 
 ## Итог
 
-Артефакт production успешно создан и собран, GitHub repository подготовлен и синхронизирован. CI/CD connection настроен, но первый Git-based deploy остановился на `preparing repo` с `Permission denied (publickey)`: Netlify deploy key ещё не добавлен в GitHub repository. Stage 6 остаётся **not completed** до добавления ключа и успешной публичной проверки. Функциональность приложения не изменялась; следующие этапы и новые функции не начинались.
+GitHub repository подготовлен и синхронизирован; site не удалялся и другие проекты не менялись. CI/CD connection настроен, но Netlify собирает неактуальный source tree, не совпадающий с GitHub `main`, поэтому Stage 6 остаётся **not completed** до исправления source connection и успешной публичной проверки. Функциональность приложения не изменялась; следующие этапы и новые функции не начинались.
