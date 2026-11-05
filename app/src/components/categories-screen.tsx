@@ -14,10 +14,10 @@ function CategoryForm({ original, onDone, onCancel }: { original?: Category; onD
     try { await commit(data => saveCategory(data, name, id, !!original)); onDone(); }
     catch (error) { setErrors(errorsFrom(error)); }
   }}>
-    <h3>{original ? "Переименование категории" : "Новая категория"}</h3>
+    <h3>{original ? "Rename Category" : "New Category"}</h3>
     {errors.message && <p role="alert" className="field-error">{errors.message}</p>}
-    <fieldset disabled={saving}><label htmlFor="category-name">Название категории<input id="category-name" autoFocus value={name} maxLength={80} onChange={event => setName(event.target.value)} aria-invalid={!!errors.fields.name} aria-describedby={errors.fields.name ? "name-error" : undefined} /><FieldError id="name-error" text={errors.fields.name} /></label>
-      <div className="actions"><button type="submit" className="primary">Сохранить категорию</button><button type="button" onClick={onCancel}>Отмена</button></div></fieldset>
+    <fieldset disabled={saving}><label htmlFor="category-name">Category name<input id="category-name" autoFocus value={name} maxLength={80} onChange={event => setName(event.target.value)} aria-invalid={!!errors.fields.name} aria-describedby={errors.fields.name ? "name-error" : undefined} /><FieldError id="name-error" text={errors.fields.name} /></label>
+      <div className="actions"><button type="submit" className="primary">Save category</button><button type="button" onClick={onCancel}>Cancel</button></div></fieldset>
   </form>;
 }
 export function CategoriesScreen() {
@@ -27,19 +27,19 @@ export function CategoriesScreen() {
   const [error, setError] = useState("");
   if (!ledger) return null;
   return <>
-    <div className="section-heading"><h2>Категории</h2><button type="button" className="primary" disabled={saving || editor !== null} onClick={() => { setNotice(""); setEditor("new"); }}>Добавить категорию</button></div>
-    <p>Категории относятся к расходам. Архивирование убирает категорию из новых операций и сохраняет историю; её можно восстановить.</p>
+    <div className="section-heading"><h2>Categories</h2><button type="button" className="primary" disabled={saving || editor !== null} onClick={() => { setNotice(""); setEditor("new"); }}>Add category</button></div>
+    <p>Categories apply to expenses. Archiving removes a category from new transactions while preserving history; it can be restored later.</p>
     {notice && <p role="status" className="success">{notice}</p>}{error && <p role="alert" className="field-error">{error}</p>}
-    {editor && <CategoryForm key={editor === "new" ? "new" : editor.id} original={editor === "new" ? undefined : editor} onDone={() => { setEditor(null); setNotice("Категория сохранена."); }} onCancel={() => setEditor(null)} />}
-    {!ledger.categories.length && <p className="panel">Категорий пока нет. Добавьте первую категорию расходов.</p>}
-    <ul className="record-list" aria-label="Список категорий">{ledger.categories.map(row => <li className="panel record" key={row.id}>
-      <div className="record-info"><strong>{row.name}</strong><p className="muted">{row.archived ? "В архиве" : "Активна"}</p></div>
-      <div className="actions"><button type="button" disabled={saving || editor !== null} onClick={() => setEditor(row)}>Переименовать</button>
+    {editor && <CategoryForm key={editor === "new" ? "new" : editor.id} original={editor === "new" ? undefined : editor} onDone={() => { setEditor(null); setNotice("Category saved."); }} onCancel={() => setEditor(null)} />}
+    {!ledger.categories.length && <p className="panel">No categories yet. Add your first expense category.</p>}
+    <ul className="record-list" aria-label="Category list">{ledger.categories.map(row => <li className="panel record" key={row.id}>
+      <div className="record-info"><strong>{row.name}</strong><p className="muted">{row.archived ? "Archived" : "Active"}</p></div>
+      <div className="actions"><button type="button" disabled={saving || editor !== null} onClick={() => setEditor(row)}>Rename</button>
         <button type="button" disabled={saving || editor !== null} onClick={async () => {
           setError(""); setNotice("");
-          try { await commit(data => setCategoryArchived(data, row.id, !row.archived)); setNotice(row.archived ? "Категория восстановлена." : "Категория перемещена в архив."); }
-          catch (error) { setError(error instanceof Error ? error.message : "Не удалось изменить категорию."); }
-        }}>{row.archived ? "Восстановить" : "В архив"}</button></div>
+          try { await commit(data => setCategoryArchived(data, row.id, !row.archived)); setNotice(row.archived ? "Category restored." : "Category archived."); }
+          catch (error) { setError(error instanceof Error ? error.message : "Unable to update category."); }
+        }}>{row.archived ? "Restore" : "Archive"}</button></div>
     </li>)}</ul>
   </>;
 }

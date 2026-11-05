@@ -25,20 +25,20 @@ export function LedgerProvider({ children }: { children: React.ReactNode }) {
       repository.current ??= createBrowserRepository();
       const loaded = await initializeLedger(repository.current);
       current.current = loaded; setLedger(loaded.ledger);
-    } catch (error) { setError(error instanceof Error ? error.message : "Не удалось прочитать данные."); }
+    } catch (error) { setError(error instanceof Error ? error.message : "Unable to read data."); }
     finally { locked.current = false; setLoading(false); }
   }, []);
   useEffect(() => { void reload(); }, [reload]);
   const commit = useCallback(async (change: (ledger: Ledger) => Ledger) => {
-    if (locked.current) throw new Error("Дождитесь завершения текущего сохранения.");
-    if (!current.current || !repository.current) throw new Error("Данные ещё не загружены.");
+    if (locked.current) throw new Error("Wait for the current save to finish.");
+    if (!current.current || !repository.current) throw new Error("Data has not loaded yet.");
     const next = change(current.current.ledger);
     locked.current = true; setSaving(true); setError("");
     try {
       const saved = await repository.current.save(next, current.current.revision);
       current.current = saved; setLedger(saved.ledger);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Не удалось сохранить данные."); throw error;
+      setError(error instanceof Error ? error.message : "Unable to save data."); throw error;
     } finally { locked.current = false; setSaving(false); }
   }, []);
   return <LedgerContext.Provider value={{ ledger, loading, saving, error, reload, commit }}>{children}</LedgerContext.Provider>;
